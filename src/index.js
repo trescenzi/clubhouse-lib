@@ -30,13 +30,13 @@ require('fetch-everywhere');
 const API_BASE_URL: string = 'https://api.clubhouse.io';
 const API_VERSION: string = 'beta';
 
-const parseResponse = (response: Response): Promise<*> =>
+const parseResponse = (request: Request) => (response: Response): Promise<*> =>
   response.json().then((json: Object) => {
     if (response.ok) {
       return json;
     }
 
-    return Promise.reject(new ClientError(response, json));
+    return Promise.reject(new ClientError(request, response, json));
   });
 
 class TokenRequestFactory implements RequestFactory {
@@ -46,20 +46,26 @@ class TokenRequestFactory implements RequestFactory {
     this.token = token;
   }
 
-  makeRequest(url: string, method?: string = 'GET', body?: Object): Promise<*> {
+  makeRequest(url: string, method?: string = 'GET', body?: Object) {
     const urlWithToken = `${url}?token=${this.token}`;
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json; charset=utf-8',
     };
 
-    return fetch(urlWithToken, {
+    return new Request(urlWithToken, {
       body: JSON.stringify(body),
       headers,
       method,
     });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  executeRequest(request: Request): Promise<*> {
+    return fetch(request);
+  }
 }
+
 /** */
 type ClientConfig = {
   baseURL: string,
@@ -98,12 +104,18 @@ class Client {
 
   listResource<ResponseType>(uri: string): Promise<Array<ResponseType>> {
     const URL = this.generateUrl(uri);
-    return this.requestFactory.makeRequest(URL).then(parseResponse);
+    const request = this.requestFactory.makeRequest(URL);
+    return this.requestFactory
+      .executeRequest(request)
+      .then(parseResponse(request));
   }
 
   getResource<ResponseType>(uri: string): Promise<ResponseType> {
     const URL = this.generateUrl(uri);
-    return this.requestFactory.makeRequest(URL).then(parseResponse);
+    const request = this.requestFactory.makeRequest(URL);
+    return this.requestFactory
+      .executeRequest(request)
+      .then(parseResponse(request));
   }
 
   createResource<ResponseType>(
@@ -111,9 +123,10 @@ class Client {
     params: Object,
   ): Promise<ResponseType> {
     const URL = this.generateUrl(uri);
+    const request = this.requestFactory.makeRequest(URL, 'POST', params);
     return this.requestFactory
-      .makeRequest(URL, 'POST', params)
-      .then(parseResponse);
+      .executeRequest(request)
+      .then(parseResponse(request));
   }
 
   updateResource<ResponseType>(
@@ -121,14 +134,18 @@ class Client {
     params: Object,
   ): Promise<ResponseType> {
     const URL = this.generateUrl(uri);
+    const request = this.requestFactory.makeRequest(URL, 'PUT', params);
     return this.requestFactory
-      .makeRequest(URL, 'PUT', params)
-      .then(parseResponse);
+      .executeRequest(request)
+      .then(parseResponse(request));
   }
 
   deleteResource<ResponseType>(uri: string): Promise<ResponseType> {
-    const URI = this.generateUrl(uri);
-    return this.requestFactory.makeRequest(URI, 'DELETE').then(parseResponse);
+    const URL = this.generateUrl(uri);
+    const request = this.requestFactory.makeRequest(URL, 'DELETE');
+    return this.requestFactory
+      .executeRequest(request)
+      .then(parseResponse(request));
   }
 
   /** */

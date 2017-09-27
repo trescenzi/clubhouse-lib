@@ -2,11 +2,49 @@
 
 exports[`#Client .createProject creates a new project 1`] = `
 Array [
-  Object {
-    "body": Object {
-      "name": "test",
+  Body {
+    "_abort": false,
+    "_bytes": 15,
+    "_raw": Array [
+      Object {
+        "data": Array [
+          123,
+          34,
+          110,
+          97,
+          109,
+          101,
+          34,
+          58,
+          34,
+          116,
+          101,
+          115,
+          116,
+          34,
+          125,
+        ],
+        "type": "Buffer",
+      },
+    ],
+    "agent": undefined,
+    "auth": null,
+    "body": "{\\"name\\":\\"test\\"}",
+    "bodyUsed": true,
+    "compress": true,
+    "counter": 0,
+    "follow": 20,
+    "headers": Headers {
+      "_headers": Object {},
     },
+    "hostname": "localhost",
     "method": "POST",
+    "path": "/api/beta/projects",
+    "port": "4001",
+    "protocol": "http:",
+    "redirect": "follow",
+    "size": 0,
+    "timeout": 0,
     "url": "http://localhost:4001/api/beta/projects",
   },
 ]
@@ -14,9 +52,27 @@ Array [
 
 exports[`#Client .deleteProject deletes a existing project 1`] = `
 Array [
-  Object {
+  Body {
+    "_abort": false,
+    "_raw": Array [],
+    "agent": undefined,
+    "auth": null,
     "body": undefined,
+    "bodyUsed": false,
+    "compress": true,
+    "counter": 0,
+    "follow": 20,
+    "headers": Headers {
+      "_headers": Object {},
+    },
+    "hostname": "localhost",
     "method": "DELETE",
+    "path": "/api/beta/projects/1",
+    "port": "4001",
+    "protocol": "http:",
+    "redirect": "follow",
+    "size": 0,
+    "timeout": 0,
     "url": "http://localhost:4001/api/beta/projects/1",
   },
 ]
@@ -24,9 +80,27 @@ Array [
 
 exports[`#Client .getProject requests a single project 1`] = `
 Array [
-  Object {
+  Body {
+    "_abort": false,
+    "_raw": Array [],
+    "agent": undefined,
+    "auth": null,
     "body": undefined,
-    "method": undefined,
+    "bodyUsed": false,
+    "compress": true,
+    "counter": 0,
+    "follow": 20,
+    "headers": Headers {
+      "_headers": Object {},
+    },
+    "hostname": "localhost",
+    "method": "GET",
+    "path": "/api/beta/projects/1234",
+    "port": "4001",
+    "protocol": "http:",
+    "redirect": "follow",
+    "size": 0,
+    "timeout": 0,
     "url": "http://localhost:4001/api/beta/projects/1234",
   },
 ]
@@ -34,9 +108,27 @@ Array [
 
 exports[`#Client .listProjects returns a list of projects with a clubhouse account 1`] = `
 Array [
-  Object {
+  Body {
+    "_abort": false,
+    "_raw": Array [],
+    "agent": undefined,
+    "auth": null,
     "body": undefined,
-    "method": undefined,
+    "bodyUsed": false,
+    "compress": true,
+    "counter": 0,
+    "follow": 20,
+    "headers": Headers {
+      "_headers": Object {},
+    },
+    "hostname": "localhost",
+    "method": "GET",
+    "path": "/api/beta/projects",
+    "port": "4001",
+    "protocol": "http:",
+    "redirect": "follow",
+    "size": 0,
+    "timeout": 0,
     "url": "http://localhost:4001/api/beta/projects",
   },
 ]
@@ -44,11 +136,49 @@ Array [
 
 exports[`#Client .updateProject updates a existing project 1`] = `
 Array [
-  Object {
-    "body": Object {
-      "name": "test",
+  Body {
+    "_abort": false,
+    "_bytes": 15,
+    "_raw": Array [
+      Object {
+        "data": Array [
+          123,
+          34,
+          110,
+          97,
+          109,
+          101,
+          34,
+          58,
+          34,
+          116,
+          101,
+          115,
+          116,
+          34,
+          125,
+        ],
+        "type": "Buffer",
+      },
+    ],
+    "agent": undefined,
+    "auth": null,
+    "body": "{\\"name\\":\\"test\\"}",
+    "bodyUsed": true,
+    "compress": true,
+    "counter": 0,
+    "follow": 20,
+    "headers": Headers {
+      "_headers": Object {},
     },
+    "hostname": "localhost",
     "method": "PUT",
+    "path": "/api/beta/projects/12",
+    "port": "4001",
+    "protocol": "http:",
+    "redirect": "follow",
+    "size": 0,
+    "timeout": 0,
     "url": "http://localhost:4001/api/beta/projects/12",
   },
 ]

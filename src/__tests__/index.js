@@ -3,17 +3,38 @@
 import Client from '../index';
 
 class TestFactory {
-  requests: Object[];
+  requests: Array<Request>;
 
-  constructor(requests: Object[]) {
+  constructor(requests: Array<Request>) {
     this.requests = requests;
   }
-  makeRequest(url: string, method: ?string, body: ?any): Promise<*> {
-    this.requests.push({ url, method, body });
-    return Promise.resolve({
-      ok: true,
-      json: () => Promise.resolve(body),
-    });
+
+  // eslint-disable-next-line class-methods-use-this
+  makeRequest(url: string, method?: string, body?: Object): Request {
+    return new Request(url, { method, body: JSON.stringify(body) });
+  }
+
+  executeRequest(request: Request): Promise<*> {
+    this.requests.push(request);
+    switch (request.method) {
+      case 'GET':
+      case 'HEAD':
+      case 'DELETE':
+        return Promise.resolve(
+          new Response(JSON.stringify({}), {
+            status: 200,
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+          }),
+        );
+      default:
+        return request.json().then(
+          json =>
+            new Response(JSON.stringify(json), {
+              status: 200,
+              headers: new Headers({ 'Content-Type': 'application/json' }),
+            }),
+        );
+    }
   }
 }
 

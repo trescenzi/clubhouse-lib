@@ -9,7 +9,8 @@ export interface Entity {
 }
 
 export interface RequestFactory {
-  makeRequest(uri: string, method?: string, body?: Object): Promise<*>;
+  makeRequest(uri: string, method?: string, body?: Object): Request;
+  executeRequest(request: Request): Promise<*>;
 }
 
 /* Users */
