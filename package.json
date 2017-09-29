@@ -3,7 +3,7 @@
   "version": "0.1.7",
   "description": "A Promise based library to the Clubhouse REST API",
   "files": ["build"],
-  "main": "build/index.js",
+  "main": "./build/index.js",
   "repository": "",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,7 @@
       "babel src --out-dir build --ignore '**/__tests__/**' && npm run build-flow",
     "build-flow": "flow-copy-source -v -i '**/__tests__/**' src build",
     "lint": "eslint src",
+    "pretest": "npm run build",
     "prepublish": "npm run build",
     "test": "jest",
     "flow": "flow",
