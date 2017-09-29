@@ -2,8 +2,8 @@
   "name": "clubhouse-lib",
   "version": "0.1.7",
   "description": "A Promise based library to the Clubhouse REST API",
-  "files": ["build"],
-  "main": "build/index.js",
+  "files": ["src"],
+  "main": "src/index.js",
   "repository": "",
   "license": "MIT",
   "scripts": {
